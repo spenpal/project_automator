@@ -5,5 +5,5 @@ SCRIPTPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 function create() {
     # shellcheck disable=SC2164
     cd "$SCRIPTPATH"
-    python main.py "$1"
+    python main.py "$@"
 }
