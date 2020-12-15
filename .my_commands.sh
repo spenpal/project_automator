@@ -8,5 +8,5 @@ directory=`pwd`
 function create() {
     # shellcheck disable=SC2164
     cd "$directory"
-    python main.py "$@"
+    python main.py "$@" || python3 main.py "$@"
 }
