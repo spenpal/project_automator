@@ -5,7 +5,6 @@
 # Standard Library Imports
 import sys
 import os
-from typing import Dict
 
 # Third Party Library Imports
 from github import Github
@@ -22,7 +21,7 @@ load_dotenv()
 token = os.getenv("TOKEN")
 
 
-def create(info: Dict) -> None:
+def create(info):
 
     if info['here']:
         path = os.getcwd()
@@ -47,7 +46,7 @@ def create(info: Dict) -> None:
     os.system("code .")
 
 
-def create_remote(info: Dict) -> None:
+def create_remote(info):
 
     if info['here']:
         path = os.getcwd()
@@ -75,7 +74,7 @@ def create_remote(info: Dict) -> None:
     print(f"Successfully created remote repository: {repo_name}")
 
 
-def create_local(info: Dict) -> None:
+def create_local(info):
 
     if info['here']:
         path = os.getcwd()
