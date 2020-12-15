@@ -9,6 +9,7 @@
 ## Initial Steps
 1. `git clone https://github.com/spenpal2000/project_automator.git`
 2. `cd project_automator`
+3. `pip install -r requirements.txt`
 3. `touch .env`
 4. `code .env`
 5. Paste the following into the .env file
