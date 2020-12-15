@@ -28,7 +28,7 @@
         - Copy the file path to that directory into the `FILEPATH=""` field, inside the quotes
 6.  `cd ~`
 7.  `code .bashrc`
-    - Copy the file path to `.my_commands.sh` and paste it into the command, as shown below
+    - Copy the file path to `.my_commands.sh` and paste it into the command, as shown as an example below
     - `source "/c/the/path/to/my/project_automator/.my_commands.sh"`
     - After saving `.bashrc`, reboot the terminal. If you get this warning: `WARNING: Found ~/.bashrc but no ~/.bash_profile, ~/.bash_login or ~/.profile.`, just ignore it and continue on
 8. And that's it! You are all set to use the `create` command whenever you want to start up a project!
