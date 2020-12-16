@@ -1,46 +1,51 @@
 # Project Automator
-> Creates your project automatically, from folder creation to linking your project to Github
+![](https://img.shields.io/github/license/spenpal2000/project_automator) ![](https://img.shields.io/github/stars/spenpal2000/project_automator)
+Project Automator is a custom command that automates the process of creating a local repository, remote repository, and linking both repositories, when starting a new project.
 
----
-## How It Works
-> [Insert text]
+## Demo
+[Demo Video (DUMMY LINK)]()
 
----
 ## Before You Get Started...
 1. Make sure this is not your first time using Github or Git
-    - The script assumes that you have your Github credentials saved in your OS' credential manager 
+    - The script assumes that you have your Github credentials saved in your OS's credential manager 
 2. Have [Python](https://www.python.org/downloads/) installed on your system (Python 3.6 or greater)
 3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
 
----
-## Initial Steps
-1. `git clone https://github.com/spenpal2000/project_automator.git`
-2. `cd project_automator`
-3. `pip install -r requirements.txt`
-4. `code .env`
-5. Paste the following into the .env file
-    ```
-    TOKEN=""
-    FILEPATH=""
-    ```
-    - *To Get The Token...*
-        - To get a token from your Github account, go to the [tokens](https://github.com/settings/tokens) page and click **Generate new token**
-        - For the note, put something like "Project Automator", to indicate you are using the token for this repo
-        - In the **Select scopes** section, only checkbox **repo**
-        - Click **Generate token** at the bottom
-        - Copy and paste the generated token into the `TOKEN=""` field, inside the quotes
-    - *To Get The Filepath...*
-        - Choose a file location where you generally keep all of your projects/repos or create a brand new folder for this!
-        - Copy the file path to that directory into the `FILEPATH=""` field, inside the quotes
-6.  `cd ~`
-7.  `code .bashrc`
-    - Copy the file path to `.my_commands.sh` and paste it into the command, as shown as an example below
-    - `source "/c/the/path/to/my/project_automator/.my_commands.sh"`
-    - After saving `.bashrc`, reboot the terminal. If you get this warning: `WARNING: Found ~/.bashrc but no ~/.bash_profile, ~/.bash_login or ~/.profile.`, just ignore it and continue on
-8. And that's it! You are all set to use the `create` command whenever you want to start up a project!
-    - *You do not have to repeat these steps after you have done it once!*
+## Install
+```
+git clone https://github.com/spenpal2000/project_automator.git
+cd project_automator
+pip install -r requirements.txt
+code .env
+```
+### Env File Format
+```
+TOKEN=""
+FILEPATH=""
+```
+- *To Get The Token...*
+    - Go to Github's [tokens](https://github.com/settings/tokens) page
+    - `Generate new token`
+    - `Note: Project Automator`
+    - In the `Select scopes` section, **only** checkmark `repo`
+    - Click `Generate token` at the bottom
+    - Paste the generated token into the `TOKEN=""` field, inside the quotes
+- *To Get The Filepath...*
+    - Choose a file location to store your projects/repos **or** create a brand new folder for this!
+    - Paste the file path to that directory into the `FILEPATH=""` field, inside the quotes
+```
+cd ~
+code .bashrc
+```
+
+### Bashrc File Format
+```
+source "~/the/path/to/project_automator/.my_commands.sh"
+```
+- Restart the terminal
+- And that's it! You are all set to use the `create` command whenever you want to start up a project!
+- You do not have to repeat these steps after you have done it once!
     
----
 ## Command Usage
 ```
 Usage:
@@ -49,10 +54,10 @@ Usage:
 General Options:
         --help                  Show help.
     -h, --here                  Execute the command at your current working directory.
-    -l, --local                 If you have a remote repo and want to create a local repo 
+    -l, --local                 If you have an existing remote repo and want to create a local repo 
                                 (Equivalent of using `git clone`).
     -p, --private               Creates a private, remote repository.
-    -r, --remote                If you have a local repo and want to create a remote repo.
+    -r, --remote                If you have an exisiting local repo and want to create a remote repo.
 
 NOTE:
     --local & --remote (or -l & -r) cannot be used simulateneously, 
