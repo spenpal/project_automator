@@ -49,5 +49,5 @@ General Options:
 ## Remarks
 1. Make sure this is not your first time using Github or Git
     - The script assumes that you have your Github credentials saved in your OS' credential manager 
-2. Have [Python](https://www.python.org/downloads/) installed on your system (The script is in Python, duh...)
+2. Have [Python 3](https://www.python.org/downloads/) installed on your system (The script is in Python, duh...)
 3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
