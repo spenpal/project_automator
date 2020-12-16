@@ -1,5 +1,5 @@
 # Project Automator
-![](https://img.shields.io/github/license/spenpal2000/project_automator) ![](https://img.shields.io/github/stars/spenpal2000/project_automator)
+![](https://img.shields.io/github/license/spenpal2000/project_automator) ![](https://img.shields.io/github/stars/spenpal2000/project_automator)  
 Project Automator is a custom command that automates the process of creating a local repository, remote repository, and linking both repositories, when starting a new project.
 
 ## Demo
