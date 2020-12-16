@@ -47,12 +47,14 @@ Usage:
     create [options] <repo_name> 
 
 General Options:
-        --help                    Show help.
-    -h, --here                    Execute the command at your current working directory.
-    -l, --local                   If you have a remote repo and want to create a local repo (Equivalent of using `git clone`).
-    -p, --private                 Creates a private, remote repository.
-    -r, --remote                  If you have a local repo and want to create a remote repo.
+        --help                  Show help.
+    -h, --here                  Execute the command at your current working directory.
+    -l, --local                 If you have a remote repo and want to create a local repo 
+                                (Equivalent of using `git clone`).
+    -p, --private               Creates a private, remote repository.
+    -r, --remote                If you have a local repo and want to create a remote repo.
 
 NOTE:
-    --remote & --local (or -r & -l) cannot be used simulateneously, as that is suggestive of the basic 'create' command
+    --remote & --local (or -r & -l) cannot be used simulateneously, 
+    as that is suggestive of the basic 'create' command
 ```
