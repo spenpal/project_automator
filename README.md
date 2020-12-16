@@ -10,6 +10,7 @@ Project Automator is a custom command that automates the process of creating a l
     - The script assumes that you have your Github credentials saved in your OS's credential manager 
 2. Have [Python](https://www.python.org/downloads/) installed on your system (Python 3.6 or greater)
 3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
+4. Use the Bash or Git Bash terminal
 
 ## Installation
 ```
