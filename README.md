@@ -11,7 +11,7 @@ Project Automator is a custom command that automates the process of creating a l
 2. Have [Python](https://www.python.org/downloads/) installed on your system (Python 3.6 or greater)
 3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
 
-## Install
+## Installation
 ```
 git clone https://github.com/spenpal2000/project_automator.git
 cd project_automator
