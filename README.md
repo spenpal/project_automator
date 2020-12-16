@@ -43,8 +43,9 @@ code .bashrc
 source "~/the/path/to/project_automator/.my_commands.sh"
 ```
 - Restart the terminal
+    - If you get a warning about creating .bash_profile, then it's working!
 - And that's it! You are all set to use the `create` command whenever you want to start up a project!
-- You do not have to repeat these steps after you have done it once!
+- **You do not have to repeat these steps after you have done it once!**
     
 ## Command Usage
 ```
