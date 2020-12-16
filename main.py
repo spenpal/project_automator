@@ -21,34 +21,45 @@ path = os.path.normpath(path)   # Normalizes Filepath
 # FUNCTIONS #
 #############
 
-def error():
+def format(msg):
+    lines = msg.split('\n')
+    tab_size = 4
+    lines = [line[tab_size:] for line in lines]
+    return "\n".join(lines)
+    
+    
+def error(e):
     msg = """\
     Usage: create [options] <repo_name>
-    Try 'create --help' for more information.
-    """
-    sys.exit(msg)
+    Try 'create --help' for more information."""
+    print(format(msg))
+    print('\n' + e)
+    sys.exit(0)
     
     
 def help():
-    msg = """\
+    msg = """
     Usage:
-    create [options] <repo_name> 
+        create [options] <repo_name> 
 
     General Options:
-            --help                    Show help.
-        -h, --here                    Execute the command at your current working directory.
-        -l, --local                   If you have a remote repo and want to create a local repo (Equivalent of using `git clone`).
-        -p, --private                 Creates a private, remote repository.
-        -r, --remote                  If you have a local repo and want to create a remote repo.
+            --help                  Show help.
+        -h, --here                  Execute the command at your current working directory.
+        -l, --local                 If you have a remote repo and want to create a local repo 
+                                    (Equivalent of using `git clone`).
+        -p, --private               Creates a private, remote repository.
+        -r, --remote                If you have a local repo and want to create a remote repo.
   
     NOTE:
-        --remote & --local (or -r & -l) cannot be used simulateneously, as that is suggestive of the basic 'create' command
-    """
-    sys.exit(msg)
+        --local & --remote (or -l & -r) cannot be used simulateneously, 
+        as that is suggestive of the basic 'create' command"""
+    print(format(msg))
+    sys.exit(0)
     
     
 def create(info):     
 
+    global path
     if info['here']:
         path = os.getcwd()
         
@@ -58,7 +69,8 @@ def create(info):
     try:
         repo = user.create_repo(repo_name, private=info['private'])
     except:
-        sys.exit("This repository name already exists on your account!\nTry a different one!")
+        print("ERROR: remote repository already exists.")
+        sys.exit(0)
 
     repo.create_file("README.md", "Initial commit", f"# {repo_name}")
     os.chdir(path)
@@ -66,25 +78,28 @@ def create(info):
     print(f"Successfully created remote and local repository: {repo_name}")
 
     os.chdir(repo_name)
-    run(['code', '.'], shell=False)
+    run(['code', '.'], shell=True)
 
 
 def create_remote(info):
 
+    global path
     if info['here']:
         path = os.getcwd()
 
     repo_name = info['repo_name']
     full_path = os.path.join(path, repo_name)
     if not os.path.isdir(full_path):
-        sys.exit('Local repository not found!\nTry again!')
+        print("ERROR: repository not found.")
+        sys.exit(0)
 
     user = Github(token).get_user()
 
     try:
         repo = user.create_repo(repo_name, private=info['private'])
     except:
-        sys.exit("This repository name already exists on your account!\nTry a different one!")
+        print("ERROR: remote repository already exists.")
+        sys.exit(0)
 
     os.chdir(full_path)
     run(['git', 'remote', 'add', 'origin', repo.clone_url], shell=False)
@@ -95,6 +110,7 @@ def create_remote(info):
 
 def create_local(info):
 
+    global path
     if info['here']:
         path = os.getcwd()
 
@@ -104,14 +120,15 @@ def create_local(info):
     try:
         repo = user.get_repo(repo_name)
     except:
-        sys.exit("This repository name does not exist on your account!\nTry again!")
+        print("ERROR: remote repository does not exist.")
+        sys.exit(0)
 
     os.chdir(path)
     run(['git', 'clone', repo.git_url], shell=False)
     print(f"Successfully cloned repository: {repo_name}")
 
     os.chdir(repo_name)
-    run(['code', '.'], shell=False)
+    run(['code', '.'], shell=True)
 
 
 #############
@@ -128,14 +145,19 @@ if __name__ == "__main__":
         help()
     
     # If too many or too little args are entered OR the last argument is not a repo_name
-    if not (1 < len(args) < 3) or args[-1].startswith('-'):
-        error()
+    if not (1 <= len(args) <= 3):
+        error_msg = "ERROR: Too few or too many arguments entered."
+        error(error_msg)
+    elif args[-1].startswith('-'):
+        error_msg = "ERROR: repo_name not found."
+        error(error_msg)
 
-    # Check if all flags entered are valid
-    ALL_FLAGS = {'--help', '-h', '--here', '-l', '--local', '-p', '--private', '-r', '--remote'}
+    # Check if all options entered are valid
+    ALL_OPTIONS = {'--help', '-h', '--here', '-l', '--local', '-p', '--private', '-r', '--remote'}
     for option in args[:-1]:
-        if option not in ALL_FLAGS:
-            error()
+        if option not in ALL_OPTIONS:
+            error_msg = f'ERROR: unknown option "{option}"'
+            error(error_msg)
             
     # Reduce all flags to one letter flags
     options = set()
@@ -144,9 +166,10 @@ if __name__ == "__main__":
         short_flag = option[start_index: start_index + 2]
         options.add(short_flag)
 
-    # Check if -r and -l flag are both entered
-    if '-r' in options and '-l' in options:
-        error()
+    # Check if -l and -r flag are both entered
+    if '-l' in options and '-r' in options:
+        error_msg = "ERROR: cannot use -l and -r flag simultaneously"
+        error(error_msg)
 
     
     ## FUNCTION CALLS ##
