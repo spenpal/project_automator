@@ -6,11 +6,17 @@
 > [Insert text]
 
 ---
+## Before You Get Started...
+1. Make sure this is not your first time using Github or Git
+    - The script assumes that you have your Github credentials saved in your OS' credential manager 
+2. Have [Python](https://www.python.org/downloads/) installed on your system (Python 3.6 or greater)
+3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
+
+---
 ## Initial Steps
 1. `git clone https://github.com/spenpal2000/project_automator.git`
 2. `cd project_automator`
 3. `pip install -r requirements.txt`
-3. `touch .env`
 4. `code .env`
 5. Paste the following into the .env file
     ```
@@ -32,22 +38,21 @@
     - `source "/c/the/path/to/my/project_automator/.my_commands.sh"`
     - After saving `.bashrc`, reboot the terminal. If you get this warning: `WARNING: Found ~/.bashrc but no ~/.bash_profile, ~/.bash_login or ~/.profile.`, just ignore it and continue on
 8. And that's it! You are all set to use the `create` command whenever you want to start up a project!
+    - *You do not have to repeat these steps after you have done it once!*
     
 ---
 ## Command Usage
 ```
-Usage:   
-  create [options] <repo_name> 
+Usage:
+    create [options] <repo_name> 
 
 General Options:
-  -h, --here                    Execute the command at your current working directory
-  -r, --remote                  If you have a local repo and want to create a remote repo.
-  -l, --local                   If you have a remote repo and want to create a local repo (Equivalent of using `git clone`)
-```
+        --help                    Show help.
+    -h, --here                    Execute the command at your current working directory.
+    -l, --local                   If you have a remote repo and want to create a local repo (Equivalent of using `git clone`).
+    -p, --private                 Creates a private, remote repository.
+    -r, --remote                  If you have a local repo and want to create a remote repo.
 
----
-## Remarks
-1. Make sure this is not your first time using Github or Git
-    - The script assumes that you have your Github credentials saved in your OS' credential manager 
-2. Have [Python](https://www.python.org/downloads/) installed on your system (The script is in Python, duh...)
-3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
+NOTE:
+    --remote & --local (or -r & -l) cannot be used simulateneously, as that is suggestive of the basic 'create' command
+```
