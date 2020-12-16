@@ -55,6 +55,6 @@ General Options:
     -r, --remote                If you have a local repo and want to create a remote repo.
 
 NOTE:
-    --remote & --local (or -r & -l) cannot be used simulateneously, 
+    --local & --remote (or -l & -r) cannot be used simulateneously, 
     as that is suggestive of the basic 'create' command
 ```
