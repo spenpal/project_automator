@@ -8,8 +8,8 @@ Project Automator is a custom command that automates the process of creating a l
 ## Before You Get Started...
 1. Make sure this is not your first time using Github or Git
     - The script assumes that you have your Github credentials saved in your OS's credential manager 
-2. Have [Python](https://www.python.org/downloads/){:target="_blank"} installed on your system (Python 3.6 or greater)
-3. Have [Visual Studio Code](https://code.visualstudio.com/download){:target="_blank"} installed on your system (Probably the best text editor you will ever see in your life)
+2. Have [Python](https://www.python.org/downloads/) installed on your system (Python 3.6 or greater)
+3. Have [Visual Studio Code](https://code.visualstudio.com/download) installed on your system (Probably the best text editor you will ever see in your life)
 4. Use the Bash or Git Bash terminal
 
 ## Installation
@@ -25,7 +25,7 @@ TOKEN=""
 FILEPATH=""
 ```
 - *To Get The Token...*
-    - Go to Github's [tokens](https://github.com/settings/tokens){:target="_blank"} page
+    - Go to Github's [tokens](https://github.com/settings/tokens) page
     - `Generate new token`
     - `Note: Project Automator`
     - In the `Select scopes` section, **only** checkmark `repo`
