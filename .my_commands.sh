@@ -1,13 +1,15 @@
 #!/bin/bash
 
 SCRIPTPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-echo "$SCRIPTPATH"
+# echo "$SCRIPTPATH"
 cd
 # reldir=`dirname "${BASH_SOURCE[0]}"`
 # cd $reldir
-# directory=`pwd`
+# SCRIPTPATH=`pwd`
 
 function create() {
+    CURDIR=`pwd`
     cd "$SCRIPTPATH"
-    python main.py "$@" || python3 main.py "$@"
+    python main.py "$@" "$CURDIR" || python3 main.py "$@" "$CURDIR"
+    cd "$CURDIR"
 }
