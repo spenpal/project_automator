@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 
 # GLOBAL VARIABLES
 load_dotenv()                   # Loads local .env
-token = os.getenv("TOKEN")      # Gets Github OAuth Token
-path = os.getenv("FILEPATH")    # Gets Project/Repos Directory
+token = os.getenv('TOKEN')      # Gets Github OAuth Token
+path = os.getenv('FILEPATH')    # Gets Project/Repos Directory
 path = os.path.normpath(path)   # Normalizes Filepath
 
 #############
@@ -25,20 +25,20 @@ def format(msg):
     lines = msg.split('\n')
     tab_size = 4
     lines = [line[tab_size:] for line in lines]
-    return "\n".join(lines)
+    return '\n'.join(lines)
     
     
 def error(e):
-    msg = """\
+    msg = '''\
     Usage: create [options] <repo_name>
-    Try 'create --help' for more information."""
+    Try 'create --help' for more information.'''
     print(format(msg))
     print('\n' + e)
     sys.exit(0)
     
     
 def help():
-    msg = """
+    msg = '''
     Usage:
         create [options] <repo_name> 
 
@@ -52,7 +52,7 @@ def help():
   
     NOTE:
         --local & --remote (or -l & -r) cannot be used simulateneously, 
-        as that is suggestive of the basic 'create' command"""
+        as that is suggestive of the basic 'create' command'''
     print(format(msg))
     sys.exit(0)
     
@@ -69,18 +69,19 @@ def create(info):
     try:
         repo = user.create_repo(repo_name, private=info['private'])
     except:
-        print("ERROR: remote repository already exists.")
+        print('ERROR: remote repository already exists.')
         sys.exit(0)
 
-    repo.create_file("README.md", "Initial commit", f"# {repo_name}")
+    # git clone method
+    repo.create_file('README.md', 'Initial commit', f'# {repo_name}')
     os.chdir(path)
-    run(['git', 'clone', repo.git_url], shell=False)
-    print(f"Successfully created remote and local repository: {repo_name}")
+    run(['git', 'clone', repo.clone_url], shell=False)
+    print(f'Successfully created remote and local repository: {repo_name}')
 
     os.chdir(repo_name)
     run(['code', '.'], shell=True)
-
-
+    
+    
 def create_remote(info):
 
     global path
@@ -90,7 +91,7 @@ def create_remote(info):
     repo_name = info['repo_name']
     full_path = os.path.join(path, repo_name)
     if not os.path.isdir(full_path):
-        print("ERROR: repository not found.")
+        print('ERROR: repository not found.')
         sys.exit(0)
 
     user = Github(token).get_user()
@@ -98,14 +99,14 @@ def create_remote(info):
     try:
         repo = user.create_repo(repo_name, private=info['private'])
     except:
-        print("ERROR: remote repository already exists.")
+        print('ERROR: remote repository already exists.')
         sys.exit(0)
 
     os.chdir(full_path)
     run(['git', 'remote', 'add', 'origin', repo.clone_url], shell=False)
     run(['git', 'branch', '-M', 'main'], shell=False)
     run(['git', 'push', '-u', 'origin', 'main'], shell=False)
-    print(f"Successfully created remote repository: {repo_name}")
+    print(f'Successfully created remote repository: {repo_name}')
 
 
 def create_local(info):
@@ -120,12 +121,12 @@ def create_local(info):
     try:
         repo = user.get_repo(repo_name)
     except:
-        print("ERROR: remote repository does not exist.")
+        print('ERROR: remote repository does not exist.')
         sys.exit(0)
 
     os.chdir(path)
-    run(['git', 'clone', repo.git_url], shell=False)
-    print(f"Successfully cloned repository: {repo_name}")
+    run(['git', 'clone', repo.clone_url], shell=False)
+    print(f'Successfully cloned repository: {repo_name}')
 
     os.chdir(repo_name)
     run(['code', '.'], shell=True)
@@ -135,7 +136,7 @@ def create_local(info):
 # MAIN CODE #
 #############
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     ## EDGE CASES ##
     args = sys.argv[1:]
@@ -146,17 +147,17 @@ if __name__ == "__main__":
     
     # If too many or too little args are entered OR the last argument is not a repo_name
     if not (1 <= len(args) <= 3):
-        error_msg = "ERROR: Too few or too many arguments entered."
+        error_msg = 'ERROR: Too few or too many arguments entered.'
         error(error_msg)
     elif args[-1].startswith('-'):
-        error_msg = "ERROR: repo_name not found."
+        error_msg = 'ERROR: repo_name not found.'
         error(error_msg)
 
     # Check if all options entered are valid
     ALL_OPTIONS = {'--help', '-h', '--here', '-l', '--local', '-p', '--private', '-r', '--remote'}
     for option in args[:-1]:
         if option not in ALL_OPTIONS:
-            error_msg = f'ERROR: unknown option "{option}"'
+            error_msg = f'ERROR: unknown option '{option}''
             error(error_msg)
             
     # Reduce all flags to one letter flags
@@ -168,7 +169,7 @@ if __name__ == "__main__":
 
     # Check if -l and -r flag are both entered
     if '-l' in options and '-r' in options:
-        error_msg = "ERROR: cannot use -l and -r flag simultaneously"
+        error_msg = 'ERROR: cannot use -l and -r flag simultaneously'
         error(error_msg)
 
     
