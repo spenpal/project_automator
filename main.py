@@ -17,6 +17,7 @@ token = os.getenv('TOKEN')      # Gets Github OAuth Token
 path = os.getenv('FILEPATH')    # Gets Project/Repos Directory
 path = os.path.normpath(path)   # Normalizes Filepath
 
+
 #############
 # FUNCTIONS #
 #############
@@ -40,18 +41,18 @@ def error(e):
 def help():
     msg = '''
     Usage:
-        create [options] <repo_name> 
+    create [options] <repo_name> 
 
     General Options:
             --help                  Show help.
-        -h, --here                  Execute the command at your current working directory.
-        -l, --local                 If you have a remote repo and want to create a local repo 
+        -h, --here                  Use current working directory as theFILEPATH.
+        -l, --local                 If you have an existing remote repo and want to create a local repo 
                                     (Equivalent of using `git clone`).
         -p, --private               Creates a private, remote repository.
-        -r, --remote                If you have a local repo and want to create a remote repo.
-  
+        -r, --remote                If you have an exisiting local repo and want to create a remote repo.
+
     NOTE:
-        --local & --remote (or -l & -r) cannot be used simulateneously, 
+        --local & --remote (or -l & -r) cannot be used simulateneously,
         as that is suggestive of the basic 'create' command'''
     print(format(msg))
     sys.exit(0)
@@ -60,8 +61,8 @@ def help():
 def create(info):     
 
     global path
-    if info['here']:
-        path = os.getcwd()
+    if info['here']['value']:
+        path = info['here']['path']
         
     repo_name = info['repo_name']
     user = Github(token).get_user()
@@ -78,6 +79,30 @@ def create(info):
     run(['git', 'clone', repo.clone_url], shell=False)
     print(f'Successfully created remote and local repository: {repo_name}')
 
+    full_path = os.path.join(path, repo_name)
+    os.chdir(full_path)
+    run(['code', '.'], shell=True)
+    
+    
+def create_local(info):
+
+    global path
+    if info['here']['value']:
+        path = info['here']['path']
+
+    repo_name = info['repo_name']
+    user = Github(token).get_user()
+
+    try:
+        repo = user.get_repo(repo_name)
+    except:
+        print('ERROR: remote repository does not exist.')
+        sys.exit(0)
+
+    os.chdir(path)
+    run(['git', 'clone', repo.clone_url], shell=False)
+    print(f'Successfully cloned repository: {repo_name}')
+
     os.chdir(repo_name)
     run(['code', '.'], shell=True)
     
@@ -85,8 +110,8 @@ def create(info):
 def create_remote(info):
 
     global path
-    if info['here']:
-        path = os.getcwd()
+    if info['here']['value']:
+        path = info['here']['path']
 
     repo_name = info['repo_name']
     full_path = os.path.join(path, repo_name)
@@ -109,29 +134,6 @@ def create_remote(info):
     print(f'Successfully created remote repository: {repo_name}')
 
 
-def create_local(info):
-
-    global path
-    if info['here']:
-        path = os.getcwd()
-
-    repo_name = info['repo_name']
-    user = Github(token).get_user()
-
-    try:
-        repo = user.get_repo(repo_name)
-    except:
-        print('ERROR: remote repository does not exist.')
-        sys.exit(0)
-
-    os.chdir(path)
-    run(['git', 'clone', repo.clone_url], shell=False)
-    print(f'Successfully cloned repository: {repo_name}')
-
-    os.chdir(repo_name)
-    run(['code', '.'], shell=True)
-
-
 #############
 # MAIN CODE #
 #############
@@ -139,7 +141,7 @@ def create_local(info):
 if __name__ == '__main__':
 
     ## EDGE CASES ##
-    args = sys.argv[1:]
+    args = sys.argv[1:-1]
     
     # Display help page if --help is entered
     if '--help' in args:
@@ -157,7 +159,7 @@ if __name__ == '__main__':
     ALL_OPTIONS = {'--help', '-h', '--here', '-l', '--local', '-p', '--private', '-r', '--remote'}
     for option in args[:-1]:
         if option not in ALL_OPTIONS:
-            error_msg = f'ERROR: unknown option '{option}''
+            error_msg = f'ERROR: unknown option "{option}"'
             error(error_msg)
             
     # Reduce all flags to one letter flags
@@ -176,7 +178,10 @@ if __name__ == '__main__':
     ## FUNCTION CALLS ##
     args_info = {
         'repo_name': args[-1],
-        'here': '-h' in options,
+        'here': {
+            'value': '-h' in options,
+            'path': sys.argv[-1]
+        },
         'private': '-p' in options
     }
 
