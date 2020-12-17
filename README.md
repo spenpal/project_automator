@@ -2,7 +2,7 @@
 ![](https://img.shields.io/github/license/spenpal2000/project_automator) ![](https://img.shields.io/github/stars/spenpal2000/project_automator)  
 Project Automator is a custom command that automates the process of creating a local repository, remote repository, and linking both repositories, when starting a new project.
 
-## Demo
+## Example Demo
 ```
 create test_repo
 ```
@@ -11,12 +11,12 @@ create test_repo
 ```
 create -h -l test_repo
 ```
-![]()
+![](https://media.giphy.com/media/INIqDRkJdkNAHnyzYj/giphy.gif)
 
 ```
 create -p -r test_repo
 ```
-![]()
+![](https://media.giphy.com/media/Af0dccMz0xKDR9oYoy/giphy.gif)
 
 ## Before You Get Started...
 1. Make sure this is not your first time using Github or Git
